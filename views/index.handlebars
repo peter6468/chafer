@@ -1,24 +1,18 @@
 <div id="wrapper">
-  <h1>Scraper</h1>
-  <div>
-    <button id="beginScrape">Begin Scrape</button>
-  </div>
-  
-  <main id="articles">
-    <ul>
-      {{#each articles}}
-        <li> {{this.title}} </li>
-        <!--li><span>Link:</span> <a href= "https://www.aljazeera.com{{this.link}}"</a></li-->
-        <li> https://www.aljazeera.com/ {{this.link}} </li>
-    
+ <h1>Mongo Scraper</h1>
 
-        <button data-id={{this._id}} id = "addBtn" type="button" class="btn btn-info">Add Note</button>
-        <button data-article={{this._id}} data-id={{this.note._id}} id = "delBtn" type="button" class="btn btn-danger">Delete Note</button>
-        <br>
-      {{/each}}
-    </ul>
-        <div id="articles"></div>
-        <div id="notes"></div>
-  </main>
-  <aside id="notes"></aside>
+ <h2><i>Articles Below</i></h2>
+
+ <div id="articles">
+   <ul>
+     {{#each articles}}
+         {{!-- {{> mongo/mongo-block sleep=true}} --}}
+     {{/each}}
+   </ul>
+ </div>
+ <div id="notes">
+   {{!-- <label for="notes">Notes:</label>
+   <input type="text" id="nots" name="name">
+   <button type="submit">Save</button> --}}
+ </div>
 </div>

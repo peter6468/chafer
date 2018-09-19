@@ -1,11 +1,11 @@
-// Grab the articles as a json
-// $.getJSON("/articles", function(data) {
-//     // For each one
-//     for (var i = 0; i < data.length; i++) {
-//       // Display the apropos information on the page
-//       $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-//     }
-//   });
+//Grab the articles as a json
+$.getJSON("/articles", function(data) {
+    // For each one
+    for (var i = 0; i < data.length; i++) {
+      // Display the apropos information on the page
+      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+    }
+  });
   
   $(document).ready(function(){
     $('#beginScrape').on('click', function(){
@@ -23,7 +23,8 @@
   });
   
   // Whenever someone clicks a p tag
-  $(document).on("click", "addBtn", function() {
+  $(document).on("click", "p", function() {
+    alert('u');
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
@@ -37,9 +38,12 @@
       // With that done, add the note information to the page
       .then(function(data) {
         console.log(data);
+        console.log('eat');
+        
         // The title of the article
         $("#notes").append("<h2>" + data.title + "</h2>");
         // An input to enter a new title
+        console.log('me');
         $("#notes").append("<input id='titleinput' name='title' >");
         // A textarea to add a new note body
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");

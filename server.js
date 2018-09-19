@@ -104,7 +104,7 @@ app.get("/scrape", function (req, res) {
           // View the added result in the console
 
 
-          articlesArray.push(dbArticle);
+          //articlesArray.push(dbArticle);
 
         })
         .catch(function (err) {
