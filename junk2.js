@@ -1,22 +1,22 @@
-//require("dotenv").config();
+//Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
-var exphbs = require("express-handlebars");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
+var exphbs = require("express-handlebars");
+var request = require("request");
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// Require all models
+//require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3010;
 
-// Initialize Express
+//initialize express
 var app = express();
 
 // Configure middleware
@@ -27,44 +27,13 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-// Use express.static to serve the public folder as a static directory
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
 mongoose.Promise = Promise;
+mongoose.connect("mongodb://localhost/aljazeera", { useNewUrlParser: true });
 
-mongoose
-  .connect(
-    MONGODB_URI,
-    {
-      useNewUrlParser: true
-    }
-  )
-  .then(connection => {
-    console.log("Connected to MongoDB");
-  })
-  .catch(error => {
-    console.log(error.message);
-  });
-
-// Routes
-
-app.get("/", function(req, res) {
-  db.Article.find({})
-  .then(function(articles) {
-      res.render("index", { articles: articles });
-  })
-  .catch(function(err) {
-      res.json(err);
-  })
-})
-  
-
-// A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
   axios.get("https://www.aljazeera.com/").then(function(response) {
@@ -72,16 +41,16 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $(".latest-news-topic").each(function(i, element) {
+    $("article h2").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-        .children()
+        .children("a")
         .text();
       result.link = $(this)
-        .children()
+        .children("a")
         .attr("href");
 
       // Create a new Article using the `result` object built from scraping
@@ -139,11 +108,7 @@ app.post("/articles/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate(
-        { _id: req.params.id },
-        { note: dbNote._id },
-        { new: true }
-      );
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
