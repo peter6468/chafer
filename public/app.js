@@ -6,25 +6,20 @@ $.getJSON("/articles", function(data) {
       $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
   });
-  
+
   $(document).ready(function(){
     $('#beginScrape').on('click', function(){
+      console.log('dirty');
+      $("#beginScrape").remove();
+      console.log('clean');
       $.get('/scrape', function(response){
         window.location = '/';
       });
-
-    });
+     });
   
-  
-  
-  
-  
-  
-  });
   
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {
-    alert('u');
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
@@ -88,4 +83,4 @@ $.getJSON("/articles", function(data) {
     $("#titleinput").val("");
     $("#bodyinput").val("");
   });
-  
+});

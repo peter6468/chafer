@@ -56,11 +56,8 @@ mongoose
   });
 
 // Routes
-
 app.get("/", function (req, res) {
-  db.Article.find({})//.sort({
-      //date: 1
-    //})
+  db.Article.find({})
     .then(function (articles) {
 
       res.render("index", {
@@ -73,14 +70,14 @@ app.get("/", function (req, res) {
 })
 
 
+
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
-  var articlesArray = [];
   // First, we grab the body of the html with request
   axios.get("https://www.aljazeera.com/").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
+    var titlesArray = [];
 
     // Now, we grab every h2 within an article tag, and do the following:
     $(".latest-news-topic").each(function (i, element) {
@@ -96,7 +93,15 @@ app.get("/scrape", function (req, res) {
       result.link = $(this)
         .children()
         .attr("href");
-      //result.
+
+        //
+        if(titlesArray.indexOf(result.title) == -1){
+
+          // push the saved title to the array 
+          titlesArray.push(result.title);
+        }
+        //
+
       console.log(result, "this is the result");
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -114,14 +119,15 @@ app.get("/scrape", function (req, res) {
     });
 
     // If we were able to successfully scrape and save an Article, send a message to the client
-
+    res.send("Scrape Complete");
   });
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
-  db.Article.find({})
+  //allows
+  db.Article.find({}).sort({_id: 1})
     .then(function (dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       res.json(dbArticle);
@@ -175,6 +181,10 @@ app.post("/articles/:id", function (req, res) {
       res.json(err);
     });
 });
+
+app.delete('/user', function (req, res) {
+  res.send('Got a DELETE request at /user')
+})
 
 // Start the server
 app.listen(PORT, function () {
