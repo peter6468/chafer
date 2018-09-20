@@ -14,9 +14,16 @@ Chafer is scraper website.
 * logger: is a simple logging library that combines the simple APIs of Ruby's logger.rb and browser-js console.log()
 
 How to use:
-1. visit: https://thawing-refuge-56336.herokuapp.com/
+1. visit: https://fathomless-refuge-20990.herokuapp.com/
 
-Here is a screenshot:
-![screen shot 2018-08-18 at 10 09 46 pm](https://user-images.githubusercontent.com/36605965/44304817-fd69db00-a334-11e8-98a7-d950af2741a4.png)
+Here are sme screenshots:
+1. Pre scrape
+![screen shot 2018-09-20 at 1 35 35 pm](https://user-images.githubusercontent.com/36605965/45836177-15d56880-bcda-11e8-98e8-ee8390009274.png)
+
+2. Post Scrape
+![screen shot 2018-09-20 at 1 40 56 pm](https://user-images.githubusercontent.com/36605965/45836508-073b8100-bcdb-11e8-93c5-cb0a34aeb85d.png)
+
+3. Comment Box
+![screen shot 2018-09-20 at 1 43 33 pm](https://user-images.githubusercontent.com/36605965/45836575-3baf3d00-bcdb-11e8-83df-db32a9f75a2e.png)
 
 This Project in maintained by peter6468 and users can contact him to get help.
