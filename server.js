@@ -92,14 +92,11 @@ app.get("/scrape", function (req, res) {
       result.link = $(this)
         .children()
         .attr("href");
+      // result.summary = $(this)
+      //   .children.href("article-heading-des")
+      //   .text();
 
-        //
-        if(titlesArray.indexOf(result.title) == -1){
 
-          // push the saved title to the array 
-          titlesArray.push(result.title);
-        }
-        //
 
       console.log(result, "this is the result");
       // Create a new Article using the `result` object built from scraping
@@ -181,9 +178,9 @@ app.post("/articles/:id", function (req, res) {
     });
 });
 
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user')
-})
+// app.delete('/user', function (req, res) {
+//   res.send('Got a DELETE request at /user')
+// })
 
 // Start the server
 app.listen(PORT, function () {

@@ -1,4 +1,4 @@
-##CHAFER ##
+## CHAFER ##
 Chafer is scraper website.  
 * It scrapes data from ALJAZEERA.  It picks up the top ten stories when you hit the "Begin Scrape" button
 * Whenever a user hovers over the title and the link, a box will populate to the right of the screen which allows the user to leave his/her name and a comment.  This comment gets saved in mongoose.
