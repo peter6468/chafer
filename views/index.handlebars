@@ -1,20 +1,26 @@
 <div id="wrapper">
- <h1>Scraper</h1>
+
+  <div class="jumbotron" style="background-color: #D1B894">
+    <div class="center col-sm-12" id="top-bar">
+      <h1 class="text-center"><strong>MIDDLE EAST NEWS</strong></h1>
+      <h2 class="text-center">
+  
+      </h2>
+    </div>
+  </div>
   <div>
+    <p>To Goto Link Type: https://www.aljazeera.com + "/link.html"</p>
     <button id="beginScrape">Begin Scrape</button>
   </div>
- <h2><i>Articles Below</i></h2>
+  <h2><i>ALJAZEERA</i></h2>
 
- <div id="articles">
-   <ul>
-     {{#each articles}}
+  <div id="articles">
+    <ul>
+      {{#each articles}}
 
-     {{/each}}
-   </ul>
- </div>
- <div id="notes">
-   {{!-- <label for="notes">Notes:</label>
-   <input type="text" id="nots" name="name">
-   <button type="submit">Save</button> --}}
- </div>
+      {{/each}}
+    </ul>
+  </div>
+  <div id="notes">
+  </div>
 </div>

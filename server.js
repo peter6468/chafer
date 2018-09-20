@@ -14,7 +14,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3033;
+var PORT = process.env.PORT || 3033;
 
 // Initialize Express
 var app = express();
@@ -68,7 +68,6 @@ app.get("/", function (req, res) {
       res.json(err);
     })
 })
-
 
 
 // A GET route for scraping the echoJS website
