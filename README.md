@@ -24,6 +24,6 @@ Here are sme screenshots:
 ![screen shot 2018-09-20 at 1 40 56 pm](https://user-images.githubusercontent.com/36605965/45836508-073b8100-bcdb-11e8-93c5-cb0a34aeb85d.png)
 
 3. Comment Box
-![screen shot 2018-09-20 at 1 43 33 pm](https://user-images.githubusercontent.com/36605965/45836575-3baf3d00-bcdb-11e8-83df-db32a9f75a2e.png)
+![screen shot 2018-09-20 at 1 43 33 pm](https://user-images.githubusercontent.com/36605965/45836575-3baf3d00-bcdb-11e8-83df-db32a9f75a2e.png) 
 
 This Project in maintained by peter6468 and users can contact him to get help.
