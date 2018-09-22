@@ -12,12 +12,13 @@ $.getJSON("/articles", function (data) {
     // console.log();
     // var link = $("link");
     // link.text(data[i].link);
-          //var ref = 
+    //var ref = 
     // var total = prtag + h1tag + link;
     // console.log (total);
 
     //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i]._id + data[i].title + "<br>" + data[i].link + "</p>");
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + data[i].link + "</p>");
+    // $("#articles").append($("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + "<a href =" + data[i].link + ">" + data[i].link + "</a>" + "</p>"));
+    $("#articles").append($(`<p data-id="${data[i]._id}">${data[i].title}<br><a target="_blank" href="${data[i].link}">${data[i].link}</a></p>`));
     // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + data[i].link + "</p>");
   }
 });
