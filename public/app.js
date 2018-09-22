@@ -3,15 +3,18 @@ $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    var ptag = $("<p>");
-    ptag.attr("data-id", data[i]._id);
+    // var ptag = $("<p>");
+    // ptag.attr("data-id", data[i]._id);
 
-    var h1tag = $("<h1>");
-    h1tag.text(data[i].title);
-    $(ptag).append(h1tag + link)
-    console.log()
-    var link = $("link");
-    link.text(data[i].link);
+    // var h1tag = $("<h1>");
+    // h1tag.text(data[i].title);
+    // $(ptag).append(h1tag + link);
+    // console.log();
+    // var link = $("link");
+    // link.text(data[i].link);
+          //var ref = 
+    // var total = prtag + h1tag + link;
+    // console.log (total);
 
     //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i]._id + data[i].title + "<br>" + data[i].link + "</p>");
     $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + data[i].link + "</p>");
@@ -56,6 +59,7 @@ $(document).ready(function () {
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
         $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notes").append("<button data-id='" + data._id + "' id='deletenote'>Delete Note</button>");
 
         // If there's a note in the article
         if (data.note) {
@@ -97,42 +101,55 @@ $(document).ready(function () {
   });
 });
 
+$(document).on("click", "#deletenote", function () {
+  var thisId = $(this).attr("data-id");
+  var articleId = $(this).attr("data-article");
+  $.ajax({
+      method: "POST",
+      url: `/delete/${thisId}/${articleId}`,
+    })
+    .then(function (data) {
+      console.log(data);
+      if (data.note) {
+        $("#titleinput").val(data.note.title);
+        $("#bodyinput").val(data.note.body);
+      }
+      $("#notes").empty();
+    });
+});
 
 var clockID;
-var yourTimeZoneFrom = +7.00; //time zone value where you are at
-
-var d = new Date();  
+var yourTimeZoneFrom = +3; //time zone value where you are at
+var d = new Date();
 //get the timezone offset from local time in minutes
 var tzDifference = yourTimeZoneFrom * 60 + d.getTimezoneOffset();
 //convert the offset to milliseconds, add to targetTime, and make a new Date
 var offset = tzDifference * 60 * 1000;
 
 function UpdateClock() {
-    var tDate = new Date(new Date().getTime()+offset);
-    var in_hours = tDate.getHours()
-    var in_minutes=tDate.getMinutes();
-    var in_seconds= tDate.getSeconds();
-
-    if(in_minutes < 10)
-        in_minutes = '0'+in_minutes;
-    if(in_seconds<10)   
-        in_seconds = '0'+in_seconds;
-    if(in_hours<10) 
-        in_hours = '0'+in_hours;
-
-   document.getElementById('theTime').innerHTML = "" 
-                   + in_hours + ":" 
-                   + in_minutes + ":" 
-                   + in_seconds;
-
+  var tDate = new Date(new Date().getTime() + offset);
+  var in_hours = tDate.getHours()
+  var in_minutes = tDate.getMinutes();
+  var in_seconds = tDate.getSeconds();
+  if (in_minutes < 10)
+    in_minutes = '0' + in_minutes;
+  if (in_seconds < 10)
+    in_seconds = '0' + in_seconds;
+  if (in_hours < 10)
+    in_hours = '0' + in_hours;
+  document.getElementById('theTime').innerHTML = "" +
+    in_hours + ":" +
+    in_minutes + ":" +
+    in_seconds;
 }
+
 function StartClock() {
-   clockID = setInterval(UpdateClock, 500);
+  clockID = setInterval(UpdateClock, 500);
 }
 
 function KillClock() {
   clearTimeout(clockID);
 }
-window.onload=function() {
+window.onload = function () {
   StartClock();
 }

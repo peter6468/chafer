@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
+var moment = require('moment-timezone');
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
@@ -92,6 +92,7 @@ app.get("/scrape", function (req, res) {
       result.link = "https://www.aljazeera.com" + $(this)
         .children()
         .attr("href");
+      // result.summary = $(".article-heading-des").text();
 
 
 
@@ -121,6 +122,10 @@ app.get("/scrape", function (req, res) {
           return res.json(err);
         });
     });
+
+var newYork    = moment.tz("2014-06-01 12:00", "America/New_York");
+var london     = newYork.clone().tz("Europe/London");
+console.log(london);
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
@@ -191,6 +196,26 @@ app.post("/articles/:id", function (req, res) {
 // app.delete('/user', function (req, res) {
 //   res.send('Got a DELETE request at /user')
 // })
+
+// Route for delete a Note
+app.post("/delete/:id/:articleId", function (req, res) {
+  db.Note.deleteOne({_id: mongoose.Types.ObjectId(req.params.id)})
+      .then(function (dbNote) {
+          return db.Article.findOneAndUpdate({
+              _id: mongoose.Types.ObjectId(req.params.articleId)
+          }, {
+              note: ''
+          }, {
+              new: true
+          });
+      })
+      .then(function (dbNote) {
+          res.json(dbNote);
+      })
+      .catch(function (err) {
+          res.json(err);
+      });
+});
 
 // Start the server
 app.listen(PORT, function () {
