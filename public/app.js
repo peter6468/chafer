@@ -2,21 +2,7 @@
 $.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    // var ptag = $("<p>");
-    // ptag.attr("data-id", data[i]._id);
 
-    // var h1tag = $("<h1>");
-    // h1tag.text(data[i].title);
-    // $(ptag).append(h1tag + link);
-    // console.log();
-    // var link = $("link");
-    // link.text(data[i].link);
-    //var ref = 
-    // var total = prtag + h1tag + link;
-    // console.log (total);
-
-    //$("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i]._id + data[i].title + "<br>" + data[i].link + "</p>");
     // $("#articles").append($("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + "<a href =" + data[i].link + ">" + data[i].link + "</a>" + "</p>"));
     $("#articles").append($(`<p data-id="${data[i]._id}">${data[i].title}<br><a target="_blank" href="${data[i].link}">${data[i].link}</a></p>`));
     // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + data[i].link + "</p>");
@@ -118,6 +104,7 @@ $(document).on("click", "#deletenote", function () {
       $("#notes").empty();
     });
 });
+
 
 var clockID;
 var yourTimeZoneFrom = +3; //time zone value where you are at

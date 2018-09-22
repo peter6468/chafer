@@ -92,20 +92,16 @@ app.get("/scrape", function (req, res) {
       result.link = "https://www.aljazeera.com" + $(this)
         .children()
         .attr("href");
-      // result.summary = $(".article-heading-des").text();
+      result.summary = $(".article-heading-des").text();
 
 
 
-      // axios.get("https://www.aljazeera.com/").then(function (response) {
-      //   // Then, we load that into cheerio and save it to $ for a shorthand selector
-      //   var $ = cheerio.load(response.data);
-      //   //var titlesArray = [];
-      //   result.summary = $(".article-heading-des").text();
+  // axios.get("https://www.aljazeera.com/").then(function (response) {
+  //       //then, we load that into cheerio and save it to $ for a shorthand selector
+  //   var $ = cheerio.load(response.data);
 
-
-
-
-
+  //       //var titlesArray = [];
+  //     result.summary = $(".article-heading-des").text();
 
       console.log(result, "this is the result");
       // Create a new Article using the `result` object built from scraping
@@ -122,10 +118,6 @@ app.get("/scrape", function (req, res) {
           return res.json(err);
         });
     });
-
-var newYork    = moment.tz("2014-06-01 12:00", "America/New_York");
-var london     = newYork.clone().tz("Europe/London");
-console.log(london);
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
