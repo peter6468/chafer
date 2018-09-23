@@ -4,7 +4,7 @@ $.getJSON("/articles", function (data) {
   for (var i = 0; i < data.length; i++) {
 
     // $("#articles").append($("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + "<a href =" + data[i].link + ">" + data[i].link + "</a>" + "</p>"));
-    $("#articles").append($(`<p data-id="${data[i]._id}">${data[i].title}<br><a target="_blank" href="${data[i].link}">${data[i].link}</a></p>`));
+    $("#articles").prepend($(`<p data-id="${data[i]._id}">${data[i].title}<br><a target="_blank" href="${data[i].link}">${data[i].link}</a></p>`));
     // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br>" + data[i].link + "</p>");
   }
 });
@@ -91,6 +91,7 @@ $(document).ready(function () {
 $(document).on("click", "#deletenote", function () {
   var thisId = $(this).attr("data-id");
   var articleId = $(this).attr("data-article");
+  
   $.ajax({
       method: "POST",
       url: `/delete/${thisId}/${articleId}`,
