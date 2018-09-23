@@ -96,12 +96,12 @@ app.get("/scrape", function (req, res) {
 
 
 
-  // axios.get("https://www.aljazeera.com/").then(function (response) {
-  //       //then, we load that into cheerio and save it to $ for a shorthand selector
-  //   var $ = cheerio.load(response.data);
+      // axios.get("https://www.aljazeera.com/").then(function (response) {
+      //       //then, we load that into cheerio and save it to $ for a shorthand selector
+      //   var $ = cheerio.load(response.data);
 
-  //       //var titlesArray = [];
-  //     result.summary = $(".article-heading-des").text();
+      //       //var titlesArray = [];
+      //     result.summary = $(".article-heading-des").text();
 
       console.log(result, "this is the result");
       // Create a new Article using the `result` object built from scraping
@@ -129,7 +129,7 @@ app.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
   //allows
   db.Article.find({}).sort({
-      _id: 1
+      _id: -1
     })
     .then(function (dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
@@ -191,22 +191,24 @@ app.post("/articles/:id", function (req, res) {
 
 // Route for delete a Note
 app.post("/delete/:id/:articleId", function (req, res) {
-  db.Note.deleteOne({_id: mongoose.Types.ObjectId(req.params.id)})
-      .then(function (dbNote) {
-          return db.Article.findOneAndUpdate({
-              _id: mongoose.Types.ObjectId(req.params.articleId)
-          }, {
-              note: ''
-          }, {
-              new: true
-          });
-      })
-      .then(function (dbNote) {
-          res.json(dbNote);
-      })
-      .catch(function (err) {
-          res.json(err);
+  db.Note.deleteOne({
+      _id: mongoose.Types.ObjectId(req.params.id)
+    })
+    .then(function (dbNote) {
+      return db.Article.findOneAndUpdate({
+        _id: mongoose.Types.ObjectId(req.params.articleId)
+      }, {
+        note: ''
+      }, {
+        new: true
       });
+    })
+    .then(function (dbNote) {
+      res.json(dbNote);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
 });
 
 // Start the server
