@@ -11,14 +11,16 @@ var ArticleSchema = new Schema({
     type: String, 
     required: true,
     unique: true,
-    dropDups: true
+    dropDups: true,
+    //dropDate: Date
   },
   // `link` is required and of type String
   link: {
     type: String,
     required: true,
     unique: true,
-    dropDups: true
+    dropDups: true,
+    //dropDate: Date
   },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model

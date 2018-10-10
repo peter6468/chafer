@@ -73,15 +73,54 @@ app.get("/", function (req, res) {
 // A GET route for scraping the echoJS website
 app.get("/scrape", function (req, res) {
   // First, we grab the body of the html with request
-  axios.get("https://www.aljazeera.com/").then(function (response) {
+  axios.get("https://www.arabnews.com/economy").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
-    var titlesArray = [];
+    let $ = cheerio.load(response.data);
+    //var titlesArray = [];
+
+    // Now, we grab every h2 within an article tag, and do the following:
+    $(".article-item-title").each(function (i, element) { //index_value result.value
+      // Save an empty result object
+      let result = {};
+
+      // Add the text and href of every link, and save them as properties of the result object
+      result.title = $(this).children().text();
+      result.link = "https://www.arabnews.com" + $(this).find("a[href]").attr('href');
+
+      /*
+
+      result.tasi = $(".value").text();
+      result.nomu = $(".smevalue").text();
+
+
+      */
+      //result.date = Date.prototype.getDate();
+
+      // Create a new Article using the `result` object built from scraping
+      db.Article.create(result)
+        .then(function (dbArticle) {
+          // View the added result in the console
+
+
+          //articlesArray.push(dbArticle);
+
+        })
+        .catch(function (err) {
+          // If an error occurred, send it to the client
+          return res.json(err);
+        });
+    });
+
+    // If we were able to successfully scrape and save an Article, send a message to the client
+    return axios.get("https://www.aljazeera.com/");
+  }).then(res => {
+    let $ = cheerio.load(res.data);
+    let titlesArray = [];
 
     // Now, we grab every h2 within an article tag, and do the following:
     $(".latest-news-topic").each(function (i, element) {
       // Save an empty result object
-      var result = {};
+      let result = {};
 
 
 
@@ -103,7 +142,7 @@ app.get("/scrape", function (req, res) {
       //       //var titlesArray = [];
       //     result.summary = $(".article-heading-des").text();
 
-      console.log(result, "this is the result");
+      console.log(result, "this is the result for alja");
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function (dbArticle) {
@@ -115,14 +154,26 @@ app.get("/scrape", function (req, res) {
         })
         .catch(function (err) {
           // If an error occurred, send it to the client
-          return res.json(err);
+          console.log(err, "------------------------")
         });
     });
+
+  });
+  res.send("scrape complete");
+});
+
+function getAljazeera(res) {
+
+  // First, we grab the body of the html with request
+  axios.get("https://www.aljazeera.com/").then(function (response) {
+    // Then, we load that into cheerio and save it to $ for a shorthand selector
+
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     res.send("Scrape Complete");
   });
-});
+
+}
 
 // Route for getting all Articles from the db
 app.get("/articles", function (req, res) {
@@ -139,6 +190,8 @@ app.get("/articles", function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+
+
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
