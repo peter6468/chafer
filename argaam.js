@@ -12,8 +12,8 @@ console.log("\n***********************************\n" +
             "\n***********************************\n");
 
 // Make a request call to grab the HTML body from the site of your choice
-//request("https://www.argaam.com/en/company/companypreviousyeardividendfilterresult?companyID=0&year=2017&sectorID=0&argaamsectorIDs=&distBonusSelection=0&orderBy=CashDividend%20desc&pageno=10&marketId=0", function(error, response, html) {
-request("https://www.argaam.com/en/disclosures/dividends/previous-year", function(error, response, html) {
+request("https://www.argaam.com/en/company/companypreviousyeardividendfilterresult?companyID=0&year=2017&sectorID=0&argaamsectorIDs=&distBonusSelection=0&orderBy=CashDividend%20desc&pageno=02&marketId=0", function(error, response, html) {
+//request("https://www.argaam.com/en/disclosures/dividends/previous-year", function(error, response, html) {
 
   // Load the HTML into cheerio and save it to a variable
   // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
