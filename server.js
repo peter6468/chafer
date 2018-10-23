@@ -87,13 +87,6 @@ app.get("/scrape", function (req, res) {
       result.title = $(this).children().text();
       result.link = "https://www.arabnews.com" + $(this).find("a[href]").attr('href');
 
-      /*
-
-      result.tasi = $(".value").text();
-      result.nomu = $(".smevalue").text();
-
-
-      */
       //result.date = Date.prototype.getDate();
 
       // Create a new Article using the `result` object built from scraping

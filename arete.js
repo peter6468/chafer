@@ -34,8 +34,8 @@ const logPosts = async () => {
 // const axios = require("axios");
 
 console.log("\n***********************************\n" +
-            "Grabbing every thread name and link\n" +
-            "from aljazeera's webdev board:" +
+            "Grabbing every thread name, pr, dyield, ddate" +
+            "from argaam" +
             "\n***********************************\n");
             
 const parserforhtml = info => {
@@ -68,7 +68,7 @@ const parserforhtml = info => {
   }
   
 
-  console.log(results);
+  console.log(JSON.stringify(results, null, 2));
 
 };
 
